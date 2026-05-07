@@ -53,14 +53,16 @@ async def health() -> dict:
 
 
 @app.get("/", tags=["Root"])
+@app.head("/", tags=["Root"])
 async def root() -> dict:
     """Return a map of available endpoints and a short description.
 
     Useful for quick discovery and for automated checks.
+    Supports both GET and HEAD for health checks.
     """
     return {
         "endpoints": {
-            "/": "This endpoint (GET) — endpoint map",
+            "/": "This endpoint (GET/HEAD) — endpoint map",
             "/health": "Health check (GET) — returns {'status': 'ok'}",
             "/predict": "Predict (POST) — accepts JSON matching InputData and returns prediction",
             "/docs": "Swagger UI (GET)",
