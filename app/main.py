@@ -45,11 +45,29 @@ async def general_exception_handler(request: Request, exc: Exception) -> JSONRes
         content={"detail": str(exc)},
     )
 
-
 @app.get("/health", tags=["Health"])
 async def health() -> dict:
     """Simple health check endpoint."""
     return {"status": "ok"}
+
+
+
+@app.get("/", tags=["Root"])
+async def root() -> dict:
+    """Return a map of available endpoints and a short description.
+
+    Useful for quick discovery and for automated checks.
+    """
+    return {
+        "endpoints": {
+            "/": "This endpoint (GET) — endpoint map",
+            "/health": "Health check (GET) — returns {'status': 'ok'}",
+            "/predict": "Predict (POST) — accepts JSON matching InputData and returns prediction",
+            "/docs": "Swagger UI (GET)",
+            "/redoc": "ReDoc UI (GET)",
+            "/openapi.json": "OpenAPI spec (GET)",
+        }
+    }
 
 
 @app.post("/predict", response_model=PredictionResponse, tags=["Prediction"])
