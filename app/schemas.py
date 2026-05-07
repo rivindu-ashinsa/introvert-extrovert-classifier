@@ -28,7 +28,7 @@ class InputData(BaseModel):
     Post_frequency: float = Field(..., description="Posting frequency (numeric)")
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "Time_spent_Alone": 3.5,
                 "Stage_fear": "No",
